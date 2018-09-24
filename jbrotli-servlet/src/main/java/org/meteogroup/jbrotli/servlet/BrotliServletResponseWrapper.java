@@ -47,15 +47,14 @@ public class BrotliServletResponseWrapper extends HttpServletResponseWrapper {
 
   @Override
   public void flushBuffer() throws IOException {
+    super.flushBuffer();
+
     if (this.printWriter != null) {
       this.printWriter.flush();
     }
-    try {
-      if (this.brotliServletOutputStream != null) {
-        this.brotliServletOutputStream.flush();
-      }
-    } finally {
-      super.flushBuffer();
+
+    if (this.brotliServletOutputStream != null) {
+      this.brotliServletOutputStream.flush();
     }
   }
 
